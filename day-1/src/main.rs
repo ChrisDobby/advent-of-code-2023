@@ -48,7 +48,7 @@ fn main() {
     let calibration: u32 = content
         .split("\n")
         .filter(|&line| line != "")
-        .map(|line| get_calibration(line))
+        .map(get_calibration)
         .sum();
 
     println!("{calibration}");
