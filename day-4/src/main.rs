@@ -19,10 +19,10 @@ fn get_matches(s: &str) -> usize {
     let winning_numbers = get_number_list(number_lists[0]);
     let our_numbers = get_number_list(number_lists[1]);
 
-    return our_numbers
+    our_numbers
         .iter()
         .filter(|n| winning_numbers.contains(n))
-        .count();
+        .count()
 }
 
 fn get_points(s: &str) -> u32 {
@@ -36,13 +36,13 @@ fn get_points(s: &str) -> u32 {
     let winning_numbers = get_number_list(number_lists[0]);
     let our_numbers = get_number_list(number_lists[1]);
 
-    return our_numbers.iter().fold(0, |acc, n| {
+    our_numbers.iter().fold(0, |acc, n| {
         if !winning_numbers.contains(n) {
             return acc;
         }
 
         return if acc == 0 { 1 } else { acc * 2 };
-    });
+    })
 }
 
 fn play_card((count, stack): (u32, Vec<usize>), matches: usize) -> (u32, Vec<usize>) {
@@ -59,7 +59,7 @@ fn play_card((count, stack): (u32, Vec<usize>), matches: usize) -> (u32, Vec<usi
         }
     }
 
-    return (count + goes as u32, new_stack);
+    (count + goes as u32, new_stack)
 }
 
 fn main() {

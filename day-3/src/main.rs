@@ -31,7 +31,7 @@ fn get_coordinates(
                 symbols.push((x, y, c));
             }
 
-            return (numbers, symbols, current_number);
+            (numbers, symbols, current_number)
         },
     );
 
@@ -45,7 +45,7 @@ fn get_coordinates(
         ));
     }
 
-    return (numbers, symbols);
+    (numbers, symbols)
 }
 
 fn is_part_number(
@@ -57,10 +57,10 @@ fn is_part_number(
     let x_range = if x_start > 0 { x_start - 1 } else { x_start }..x_end + 1;
     let y_range = if y > 0 { y - 1 } else { y }..y + 2;
 
-    return symbols
+    symbols
         .iter()
         .find(|(symbol_x, symbol_y, _)| x_range.contains(symbol_x) && y_range.contains(symbol_y))
-        .is_some();
+        .is_some()
 }
 
 fn calculate_gear_ratio(
@@ -79,11 +79,11 @@ fn calculate_gear_ratio(
         .map(|(_, _, _, n)| n)
         .collect::<Vec<&u32>>();
 
-    return if adjacent_numbers.len() == 2 {
+    if adjacent_numbers.len() == 2 {
         **adjacent_numbers.get(0).unwrap() * **adjacent_numbers.get(1).unwrap()
     } else {
         0
-    };
+    }
 }
 
 fn main() {

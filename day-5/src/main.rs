@@ -108,7 +108,7 @@ fn find_seed_location(seed: u64, lookups: [Lookup; 7]) -> u64 {
     })
 }
 
-fn find_seed_for_location(location: u64, lookups: [Lookup; 7]) -> u64 {
+fn get_seed_for_location(location: u64, lookups: [Lookup; 7]) -> u64 {
     lookups.iter().rev().fold(location, |destination, lookup| {
         get_source(destination, lookup.clone())
     })
@@ -125,7 +125,6 @@ fn main() {
 
     let seeds = get_seeds(lines[0]);
     let lookups = create_lookups(lines[1..].to_vec());
-    let seed_ranges = get_seed_ranges(lines[0]);
 
     let lowest_location = seeds
         .iter()
@@ -135,8 +134,9 @@ fn main() {
 
     println!("Lowest location {lowest_location:?}");
 
+    let seed_ranges = get_seed_ranges(lines[0]);
     for location in 0..1000000000 {
-        let seed: u64 = find_seed_for_location(location, lookups.clone());
+        let seed: u64 = get_seed_for_location(location, lookups.clone());
         let range = seed_ranges
             .iter()
             .find(|r| r.0 <= seed && r.0 + r.1 >= seed);

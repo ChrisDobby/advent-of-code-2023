@@ -19,7 +19,7 @@ fn find_number(s: &str) -> Option<u32> {
         }
     }
 
-    return None;
+    None
 }
 
 fn get_calibration(s: &str) -> u32 {
@@ -36,9 +36,7 @@ fn get_calibration(s: &str) -> u32 {
         return acc;
     });
 
-    let ret = (n.0.unwrap() * 10) + n.1.unwrap();
-    println!("{s}, {ret}");
-    return ret;
+    (n.0.unwrap() * 10) + n.1.unwrap()
 }
 
 fn main() {
