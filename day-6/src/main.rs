@@ -32,7 +32,6 @@ fn get_lowest_winning_wait(
     winning_distance: u64,
 ) -> u64 {
     let calculated_distance = wait_time * (total_time - wait_time);
-    // println!("wait_time {wait_time}, last_checked_time {last_checked_time}, total_time {total_time}, winning_distance {winning_distance}, calculated_distance {calculated_distance}");
     if calculated_distance == winning_distance {
         return wait_time;
     }
