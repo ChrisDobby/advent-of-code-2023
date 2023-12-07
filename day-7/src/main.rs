@@ -97,17 +97,15 @@ fn compare_hands(
     cmp_cards(cards1, cards2, j_value)
 }
 
-fn main() {
-    let content =
-        fs::read_to_string("./input.txt").expect("Should have been able to read the file");
-
+fn get_winnings(content: String, with_joker: bool) -> u32 {
     let mut hands = content
         .split("\n")
         .filter(|l| !l.is_empty())
-        .map(|s| get_hand(s, false))
+        .map(|s| get_hand(s, with_joker))
         .collect::<Vec<(&str, u32, Vec<usize>)>>();
 
-    hands.sort_by(|a, b| compare_hands(a.clone(), b.clone(), 11));
+    let j_value = if with_joker { 1 } else { 11 };
+    hands.sort_by(|a, b| compare_hands(a.clone(), b.clone(), j_value));
 
     let winnings: u32 = hands
         .iter()
@@ -115,20 +113,15 @@ fn main() {
         .map(|(i, (_, bid, _))| ((i + 1) as u32) * bid)
         .sum();
 
+    winnings
+}
+fn main() {
+    let content =
+        fs::read_to_string("./input.txt").expect("Should have been able to read the file");
+
+    let winnings = get_winnings(content.clone(), false);
     println!("winnings {:?}", winnings);
 
-    let mut hands_with_jokers = content
-        .split("\n")
-        .filter(|l| !l.is_empty())
-        .map(|s| get_hand(s, true))
-        .collect::<Vec<(&str, u32, Vec<usize>)>>();
-
-    hands_with_jokers.sort_by(|a, b| compare_hands(a.clone(), b.clone(), 1));
-    let winnings_with_jokers: u32 = hands_with_jokers
-        .iter()
-        .enumerate()
-        .map(|(i, (_, bid, _))| ((i + 1) as u32) * bid)
-        .sum();
-
+    let winnings_with_jokers = get_winnings(content.clone(), true);
     println!("winnings with jokers {:?}", winnings_with_jokers);
 }
