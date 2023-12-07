@@ -107,14 +107,13 @@ fn get_winnings(content: String, with_joker: bool) -> u32 {
     let j_value = if with_joker { 1 } else { 11 };
     hands.sort_by(|a, b| compare_hands(a.clone(), b.clone(), j_value));
 
-    let winnings: u32 = hands
+    hands
         .iter()
         .enumerate()
         .map(|(i, (_, bid, _))| ((i + 1) as u32) * bid)
-        .sum();
-
-    winnings
+        .sum()
 }
+
 fn main() {
     let content =
         fs::read_to_string("./input.txt").expect("Should have been able to read the file");
