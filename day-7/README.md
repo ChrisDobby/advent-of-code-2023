@@ -1,4 +1,4 @@
-# Day 3
+# Day 7
 
 [Advent of Code 2023 - day 7](https://adventofcode.com/2023/day/7)
 
